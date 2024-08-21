@@ -1,0 +1,47 @@
+O uso de Contextos no React pode resolver o problema de "Props Drilling" (ou "perfuração de props") ao fornecer uma maneira eficiente de compartilhar dados entre componentes sem precisar passar props manualmente por cada nível intermediário da árvore de componentes.
+
+
+contexto de armazenar e compartilhar o dado
+
+import React from 'react';
+
+// Criar o Contexto
+const DadosContext = React.createContext();
+
+
+
+aqui fornece o valor do contexto 
+
+function Avô() {
+    const dados = "Informação importante";
+    
+    return (
+        <DadosContext.Provider value={dados}>
+            <Pai />
+        </DadosContext.Provider>
+    );
+}
+
+
+
+
+consumir o contexo 
+
+function Neto() {
+    const dados = React.useContext(DadosContext);
+    return <div>{dados}</div>;
+}
+
+
+
+nao tem necessidade dos componentes intermediários (pai e filho) precisar passar o dado manualmente.
+
+function Pai() {
+    return <Filho />;
+}
+
+function Filho() {
+    return <Neto />;
+}
+
+
